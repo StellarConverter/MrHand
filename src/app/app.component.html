@@ -3,11 +3,18 @@
 </h1>
 
 <button  (click)="Click2()">Clickerityo</button>
-
 <P>
-  <HR>
-  <p>
-<button  (click)="click1()">the old lame button</button>
-<h1>
+<h2>
   count: {{this.people}}
-</h1>
+</h2>
+<HR>
+<button (click)="newURL()">New URL</button>
+<ul>
+  <li *ngFor="let url of urls; let idx = index">
+    {{url}}
+    
+      <!--<input [(ngModel)]="url">/> -->
+      
+     <button (click)="HitIt(idx)">Hit It</button>
+  </li>  
+</ul>

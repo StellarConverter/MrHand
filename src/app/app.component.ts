@@ -1,28 +1,24 @@
 import { Component } from '@angular/core';
 import { HandyService } from './handy.service';
+import { StorageService } from './storage.service';
 import { Person } from './classes';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[HandyService]
+  providers:[HandyService, StorageService]
 })
 
 export class AppComponent
 {
   title = 'here comes mister hand';
   people: Person[] = [];
+  urls:string[];
 
-  constructor(private hs:HandyService)
+  constructor(private hs:HandyService, private sto:StorageService)
   {
-    ;
-  }
-
-  public click1()
-  {
-    let response = this.hs.Thing1();
-    alert(response);
+    this.urls = sto.LoadURLs();
   }
 
   public Click2()
@@ -33,5 +29,16 @@ export class AppComponent
       fail=>alert(fail),
       ()=>alert("done loading the stuff")   );
   }
+
+  public newURL()
+  {
+
+  }
+
+  public HitIt(urlIndex:number)
+  {
+    alert(this.urls[urlIndex]);
+  }
+
 
 }
