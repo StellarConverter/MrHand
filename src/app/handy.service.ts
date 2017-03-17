@@ -19,9 +19,9 @@ export class HandyService
    public hitArbiraryURL(url:string) : Observable<string>
    {
      let result = this.http
-      .get(url, {headers: this.getHeaders()})
-      .map(this.mapString)
-      .catch(handleError);
+       .get(url,{headers: this.getHeaders()})
+       .map(this.mapString)
+       .catch(this.oops);
       return result;
    
    }
@@ -30,6 +30,16 @@ export class HandyService
 {
   return JSON.stringify(response);
 }
+
+
+private oops (error: any)
+ {
+  let errorMsg = JSON.stringify(error);
+  //console.error(errorMsg);
+  return Observable.throw(errorMsg);
+}
+
+
 
 
 
@@ -58,7 +68,7 @@ export class HandyService
 //well this is a total copy-paste... what is it and why does it actualy work?
   private getHeaders(){
     let headers = new Headers();
-    headers.append('Accept', 'application/json');
+//    headers.append('Accept', 'application/json');
     return headers;
   }
 
