@@ -8,13 +8,20 @@
   count: {{this.people}}
 </h2>
 <HR>
-<button (click)="newURL()">New URL</button>
+<button (click)="addURL()">New URL</button>
+<input [(ngModel)]="theNewUrl"/> 
 <ul>
   <li *ngFor="let url of urls; let idx = index">
     {{url}}
-    
       <!--<input [(ngModel)]="url">/> -->
       
      <button (click)="HitIt(idx)">Hit It</button>
+     |
+     <button (click)="Delete(idx)">Delete</button>
   </li>  
 </ul>
+<div>Results:
+  <div style="color:green">{{UrlHitterResultsStringGood}}</div>
+  <div style="color:yellow">{{UrlHitterResultsStringWorking}}</div>
+<div style="color:red">{{UrlHitterResultsStringBad}}</div>
+</div>

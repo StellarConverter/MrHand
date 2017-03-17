@@ -16,9 +16,16 @@ export class AppComponent
   people: Person[] = [];
   urls:string[];
 
+  UrlHitterResultsStringGood:string = null;
+  UrlHitterResultsStringBad:string = null;
+  UrlHitterResultsStringWorking:string = null;
+
+  theNewUrl:string=null;
+
   constructor(private hs:HandyService, private sto:StorageService)
   {
     this.urls = sto.LoadURLs();
+    this.UrlHitterResultsStringGood="this is what success looks like";
   }
 
   public Click2()
@@ -30,14 +37,39 @@ export class AppComponent
       ()=>alert("done loading the stuff")   );
   }
 
-  public newURL()
-  {
 
+//URL stuff with local storage wonderfulness
+  public addURL()
+  {
+   this.urls.splice(0, 0, this.theNewUrl);
+   this.sto.SaveURLs(this.urls);
   }
 
   public HitIt(urlIndex:number)
   {
-    alert(this.urls[urlIndex]);
+    let url = this.urls[urlIndex];
+
+    this.UrlHitterResultsStringGood = null;
+    this.UrlHitterResultsStringBad = null;
+    this.UrlHitterResultsStringWorking = "working...";
+
+    this.hs.hitArbiraryURL(url).subscribe(
+      rec=>this.UrlHitterResultsStringGood = rec,
+      fail=>this.acceptYourFailure(fail) ,
+      ()=>this.UrlHitterResultsStringWorking = "done OK"  );    
+
+  }
+
+  private acceptYourFailure(failString:string)
+  {
+      this.UrlHitterResultsStringBad = failString;
+      this.UrlHitterResultsStringWorking = null;
+  }
+
+  public Delete(idx:number)
+  {
+    this.urls.splice(idx, 1);
+    this.sto.SaveURLs(this.urls);
   }
 
 

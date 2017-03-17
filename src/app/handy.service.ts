@@ -14,6 +14,28 @@ export class HandyService
     ;
   }
 
+
+
+   public hitArbiraryURL(url:string) : Observable<string>
+   {
+     let result = this.http
+      .get(url, {headers: this.getHeaders()})
+      .map(this.mapString)
+      .catch(handleError);
+      return result;
+   
+   }
+
+  private mapString(response:Response):string
+{
+  return JSON.stringify(response);
+}
+
+
+
+
+
+
   private baseUrl: string = 'http://swapi.co/api';
 
     public Thing1() : string
@@ -22,7 +44,7 @@ export class HandyService
     }
 
 
-
+//////below is the star wars sample stuff...........
 
   public getAll(): Observable<Person[]>{
     let people$ = this.http
@@ -43,6 +65,9 @@ export class HandyService
 
 
 }
+
+
+
 
 
 ////what the heck is this crap?   regular Javascript in my awesome typescript?   ugh..... heinous
@@ -80,7 +105,8 @@ function extractId(personData:any){
 function handleError (error: any) {
   // log error
   // could be something more sofisticated
-  let errorMsg = error.message || `fail!`
+//  let errorMsg = error.message || `fail!`
+  let errorMsg = JSON.stringify(error);
   console.error(errorMsg);
   //alert(errorMsg);
 

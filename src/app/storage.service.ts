@@ -8,18 +8,15 @@ export class StorageService
   }
 
 
-//LOLCAT -- this unit needs to be changed to use HTML Local Storage
-
     public LoadURLs() : string[]
     {
-
-      let str : string[] = ['aaaa','bbbb','ccccc'];
-      return str;
+      let str = localStorage.getItem("urls");
+      return JSON.parse(str);
     }  
 
 
     public SaveURLs(urls:string[])
     {
-      ;
+      localStorage.setItem("urls", JSON.stringify(urls));
     }      
 }
